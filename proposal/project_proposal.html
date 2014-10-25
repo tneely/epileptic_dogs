@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Predicting Epileptic Siezures</title>
+        <link type="text/css" rel="stylesheet" href="./project_proposal.css">
+    </head>
+    
+    <body>
+        <header>
+            <div id="title">Epileptic Seizure Prediction</div>
+            <div id="authors">Jack Terwilliger, Taylor Neely</div>
+        </header>
+        
+        <div class="content">
+            <section>
+                <h1>Problem</h1>
+                <p>Epilepsy is characterized by sudden, recurrent seizures. While their symptoms are manageable through medication and surgical treatment, epileptics are at a constant health risk. Seizures during activities such as biking and driving can result in injury or death. By developing an early warning system to predict oncoming seizures, we hope to provide those with epilepsy time to prepare for their seizures and relieve any anxiety attributed to the disorder. EEG records electrical surface brain activity. Many electrodes placed over multiple locations on the scalp can give substantial insight into brain activity. We want to use data from EEG recordings to assess a patient's brain state and use this information to identify when they are at risk for a seizure.</p>
+            </section>
+            
+            <section>
+                <h1>Datasets</h1>
+                <a href="http://imgur.com/dEQ7H5j"><img src="http://i.imgur.com/dEQ7H5j.png" title="1" height="334" width="757"/></a>
+                <p>EEG Data is provided by Kaggle (<a href = "https://www.kaggle.com/c/seizure-prediction/data">https://www.kaggle.com/c/seizure-prediction/data</a>). Training and test data is provided for 5 dogs (iEEG) and 2 patients. Test data segments from iEEG recordings are classified into interictal (between seizures) and preictal (before seizure). Each data segment contains an m x n matrix of m recording electrodes and n measurements (seconds sampled x sampling frequency). Recording time, sampling frequency, and channel number are provided for each segment. Segments are typically over a 10 minute period; with preictal states beginning several hours before seizures<sup>2</sup>, this sample length still gives sufficient time to provide an early warning.</p>
+            </section>
+            
+            <section>
+                <h1>Methods</h1>
+                <p>We are interested in identifying the state of the brain (i.e. prictal or interictal) through iEEG data (EEG for humans). To do this, we must find the relevant features in the iEEG data that distinguish between brain states. Since our dataset is annotated and categorized into the above states, and since, in a real-world situation, the we will be able provide feedback to any prediction (i.e. whether a seizure occurs in time t after a prediction is made), we will approach this problem with a supervised learning method. The data will first be pre-processed by a fast Fourier transform on all electrode channels, and then we will use a support vector machine algorithm<sup>3</sup> to classify states as either interictal or preictal. We might also look into using a hidden Markov model to analyze and classify our data as well. Since the ictal states of the brain can be treated as hidden states, they can be easily modeled by an HMM. With this model we believe we would be better able to account for false positives, which would be represented by a transition from a preictal state back into the interictal state.</p>
+            </section>
+            
+            <section>
+                <h1>Timeline</h1>
+                <p>We hope to have all data parsing, pre-processing, and SVM analysis fully fucntional for one of the dog datasets by the milestone. Time spent after the milestone will be dedicated to algorithm optimization and robustness and application to the other dogs and, hopefully, human patient data.</p>
+            </section>
+            
+            <section>
+                <h1>References</h1>
+                <font size="2">
+                <ol type="1">
+                    <li>Direito, Bruno. FCTUC Colloquium. 2012. <a href = "http://www.uc.pt/en/fctuc/dei/ensino/doctoral_program/colloquiumbrunodireito">http://www.uc.pt/en/fctuc/dei/ensino/doctoral_program/colloquiumbrunodireito</a></li>
+                    <li>Osorio, et al. Epilepsy: The Intersection of Neurosciences, Biology, Mathematics, Engineering, and Physics. CRC Press. May 2011.</li>
+                    <li>Park, Y., Luo, L., Parhi, K. K. and Netoff, T. (2011), Seizure prediction with spectral power of EEG using cost-sensitive support vector machines. Epilepsia, 52: 1761–1770. doi: 10.1111/j.1528-1167.2011.03138.x</li>
+                </ol>
+            </font>
+            </section>
+        </div>
+    </body>
+</html>
