@@ -1,0 +1,6 @@
+%{
+    Given test EEG data, preprocesses features and trains neural network
+    over the training set.
+%}
+
+function classify()
