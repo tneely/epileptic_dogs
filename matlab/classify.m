@@ -3,4 +3,4 @@
     classify segments based on given neural network.
 %}
 
-function pred = classify(test, params)
+function pred = classify(test, params) 

@@ -3,4 +3,4 @@
     over the training set.
 %}
 
-function train(train)
+function train(train) 
