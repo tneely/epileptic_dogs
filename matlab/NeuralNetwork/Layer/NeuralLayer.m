@@ -6,16 +6,18 @@ classdef NeuralLayer
         numSynapses;
         numNeurons;
         
-        Weights;
-        netj;
+        Weights;%[inputs x neurons] the matrix of synaptic weights
+        prev_net_j;%for backpropogation
         
+        %The activation function computes this layers output vector
         activationFun;
         activationFunParams;
-        
-        upstreamLayer;
     end
     
     methods
+        %NeuralLayer Constructor
+        %input  S [2 x 1] size of the weight matrix
+        %       A [a x 1] the activation function, may contain func. params
         function obj = NeuralLayer(S, A)
             obj.activationFun = A(1);
             if size(A) > 1
@@ -35,6 +37,7 @@ classdef NeuralLayer
         %uses net_j and activationFun
         function Y = activate(X)
             N = net_j(X);
+            obj.prev_net_j = N;
             Y = obj.activationFun(N, obj.activationFunParams);
         end
         
