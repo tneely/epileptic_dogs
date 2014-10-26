@@ -1,6 +1,10 @@
-classdef NeuralLayer
+classdef(Abstract) NeuralLayer < Handle
     %NerualLayer 
     %   Detailed explanation goes here
+    
+    properties (Abstract)
+        layerType;%input | hidden | output
+    end
     
     properties
         numSynapses;
