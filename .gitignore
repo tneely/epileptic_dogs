@@ -37,3 +37,7 @@ ehthumbs.db
 Thumbs.db
 
 EEG\ Data
+
+# Matlab Backup #
+#################
+*.asv
