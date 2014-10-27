@@ -6,6 +6,8 @@ classdef FeedForwardNetwork < handle
         name;
         type = 'ffn';
         
+        learning_rate;
+        
         input_layer = nan; %inputlayer
         output_layer = nan; %outputlayer
         
@@ -15,52 +17,38 @@ classdef FeedForwardNetwork < handle
         function obj = FeedForwardNetwork()
         end
         
-        function [] = InputLayer(S, A)
-            obj.input_layer = InputLayer(S, A);
+        function obj = addInputLayer(obj, n_in, n_neurons)
+            obj.input_layer = InputLayer(n_in, n_neurons);
         end
         
-        function [] = AddHiddenLayer(S, A)
-            lst_layer = obj.input_layer;
-            while ~isNaN(lst_layer.downstream)
+        function [] = addHiddenLayer(obj, n_in, n_neurons)
+            last_layer = obj.input_layer;
+            while ~isequal(last_layer.downstream, [])
                 last_layer = last_layer.downstream;
             end
             %create a new hidden layer
-            curr_layer = HiddenLayer(S, A, lst_layer);
+            curr_layer = HiddenLayer( n_in, n_neurons, last_layer);
             %new hidden layer is downstream from previous layer
-            upstream_layer.downstream = curr_layer;
+            curr_layer.upstream.downstream = curr_layer;
         end
         
-        function [] = outputLayer(S, A, sft, bin)
-            lst_layer = obj.input_layer;
-            while ~isNaN(lst_layer.downstream)
+        function [] = addOutputLayer(obj, n_in, n_neurons, sft, bin)
+            last_layer = obj.input_layer;
+            while ~isequal(last_layer.downstream, [])
                 last_layer = last_layer.downstream;
             end
-            obj.output_layer = OutputLayer(S, A, sft, bin);
+            obj.output_layer = OutputLayer(n_in, n_neurons, last_layer, ...
+                sft, bin);
             %output layer is downstream from previous layer
-            upstreamLayer.downstream = obj.output_layer;
+            obj.output_layer.upstream.downstream = obj.output_layer;
         end
         
         %predict compute network output
         %input X [1 x features]
         %output Y [1 x values]
         %uses a helper function
-        function Y = predict(X)
-            Y = predictHelper(X, obj.input_layer);
-        end
-        
-        %predictHelper is the recursive helper to predict
-        %input  X [1 x num upstream neurons]
-        %       layer the current layer we are computing for
-        %output Y [1 x values]
-        function Y = predictHelper(X, layer)
-            %Base Case: output layer
-            if strcmp(layer.type, 'output')
-                Y = layer.activation(X);
-            %Recursive Case: non output layer
-            else
-                X = layer.activation(X);
-                Y = predictHelper(X, layer.downstream);
-            end
+        function Y = predict(obj, X)
+            Y = obj.input_layer.predictHelper(X);
         end
         
     end

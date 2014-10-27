@@ -7,7 +7,7 @@ function BPE = backproperror( input_layer, E )
 %           input_layer 
 %           
 
-BPE = backproperrorHelper(input_layer, E);
+BPE = backproperrorHelper(input_layer.downstream, E);
     
 end
 
@@ -17,7 +17,7 @@ end
 function BPE = backproperrorHelper(layer, E)
 
 %compute the derivative matrix
-D = D(layer.N, layer.delta_activity);
+D = makeD(layer.N, layer.delta_activationfun);
 
 %Base Case
 if strcmp(layer.type, 'output')

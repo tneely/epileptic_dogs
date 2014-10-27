@@ -1,22 +1,25 @@
-classdef(Abstract) NeuralLayer < Handle
+classdef(Abstract) NeuralLayer < handle
     %NerualLayer 
     %   Detailed explanation goes here
     
     properties (Abstract)
-        layerType;%input | hidden | output
+        type;%input | hidden | output
     end
     
     properties
         numSynapses;
         numNeurons;
         
+        upstream = [];
+        downstream = [];
+        
         Weights;%[inputs x neurons] the matrix of synaptic weights
         O;%[1 x input] the last input vector for backpropogation
         N;%[1 x neuron] array of netj for backpropogation
         
         %The activation function computes this layers output vector
-        activationfun;
-        delta_activationfun
+        activationfun = @logsigfun;
+        delta_activationfun = @delta_logsigfun;
         params_activationfun;
     end
     
@@ -24,17 +27,14 @@ classdef(Abstract) NeuralLayer < Handle
         %NeuralLayer Constructor
         %input  S [2 x 1] size of the weight matrix
         %       A [a x 1] the activation function, may contain func. params
-        function obj = NeuralLayer(S, A)
-            obj.activationFun = A(1);      
-            obj.activationFunParams = A(2);
-            if size(A) > 2
-                obj.params_activationfun = A(3);
-            end
+        function obj = NeuralLayer(n_in, n_neuron)            
+            obj.numSynapses = n_in;
+            obj.numNeurons = n_neuron;
             
-            obj.numSynapses = S(1);
-            obj.numNeurons = S(2);
+            %obj.activationfun = act;      
+            %obj.params_activationfun = dact;
             
-            obj.Weights = seedWeights(S);
+            obj.Weights = rand(obj.numSynapses, obj.numNeurons);
         end
         
         %activate computes the output vector from the layer
@@ -42,26 +42,34 @@ classdef(Abstract) NeuralLayer < Handle
         %output Y [1 x neurons] the output vector from the layer
         %
         %uses net_j and activationFun
-        function Y = activate(X)
+        function Y = activate(obj, X)
             obj.O = X;
-            obj.N = Net(X);
-            obj.prev_net_j = obj.N;
-            Y = obj.activationFun(obj.N, obj.activationFunParams);
+            obj.N = obj.Net(X);
+            Y = obj.activationfun(obj.N);
         end
         
         %net_j computes input vector for the layer
         %input X [1 x numInputs] the input vector into each synapse
         %output [1 x neurons] the summed input into each neuron
-        function N = Net(X)
+        function N = Net(obj, X)
             N = X*obj.Weights;
         end
         
-    end
-    
-    methods (Static)
-        function W = seedWeights(S)
-            W = rand(S(1), S(2));
+        %predictHelper is the recursive helper to predict
+        %input  X [1 x num upstream neurons]
+        %       layer the current layer we are computing for
+        %output Y [1 x values]
+        function Y = predictHelper(obj, X)
+            %Base Case: output layer
+            if strcmp(obj.type, 'output')
+                Y = obj.activate(X);
+            %Recursive Case: non output layer
+            else
+                X = obj.activate(X);
+                Y = obj.downstream.predictHelper(X);
+            end
         end
+        
     end
     
         

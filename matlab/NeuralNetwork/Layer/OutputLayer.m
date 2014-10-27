@@ -3,21 +3,9 @@ classdef OutputLayer < NeuralLayer
     %   Detailed explanation goes here
     
     properties
-        layerType = 'output';
+        type = 'output';
         softmax;
         binary;
-        numSynapses;
-        numNeurons;
-        
-        upstream;
-        downstream = nan;
-        
-        Weights;%[inputs x neurons] the matrix of synaptic weights
-        prev_net_j;%for backpropogation
-        
-        %The activation function computes this layers output vector
-        activationFun;
-        activationFunParams;
     end
     
     methods
@@ -26,8 +14,8 @@ classdef OutputLayer < NeuralLayer
         %       A [a x 1] the activation function, may contain func. params
         %       softmax true | false
         %           whether output must sum to one
-        function obj = OutputLayer(S, A, u, smx, bin)
-            obj@NeuralLayer(S,A);
+        function obj = OutputLayer(n_in, n_neurons, u, smx, bin)
+            obj@NeuralLayer(n_in,n_neurons);
             obj.upstream = u;
             obj.softmax = smx;
             obj.binary = bin;
@@ -41,8 +29,8 @@ classdef OutputLayer < NeuralLayer
         %if output layer is using softmax, then normalize the output
         %if output layer is binary, then round the output to int after
         %softmax
-        function Y = activate(X)
-            Y = activate@NeuralNetwork(X);
+        function Y = activate(obj, X)
+            Y = activate@NeuralLayer(obj, X);
             if obj.softmax
                 Y = Y./norm(Y);
             end

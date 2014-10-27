@@ -5,7 +5,7 @@ function [ Y ] = logsigfun( N )
 %   output:
 %           Y []
 
-Y = sigFun(N);
+Y = sigfun(N);
 
 end
 
