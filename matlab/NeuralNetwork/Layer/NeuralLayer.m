@@ -44,15 +44,15 @@ classdef(Abstract) NeuralLayer < handle
         %uses net_j and activationFun
         function Y = activate(obj, X)
             obj.O = X;
-            obj.N = obj.Net(X);
+            obj.N = obj.Net(obj.O);
             Y = obj.activationfun(obj.N);
         end
         
         %net_j computes input vector for the layer
-        %input X [1 x numInputs] the input vector into each synapse
+        %input X [1 x inputs] the input vector into each synapse
         %output [1 x neurons] the summed input into each neuron
-        function N = Net(obj, X)
-            N = X*obj.Weights;
+        function N = Net(obj, O)
+            N = O*obj.Weights;
         end
         
         %predictHelper is the recursive helper to predict
@@ -69,7 +69,6 @@ classdef(Abstract) NeuralLayer < handle
                 Y = obj.downstream.predictHelper(X);
             end
         end
-        
     end
     
         

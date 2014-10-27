@@ -16,14 +16,15 @@ bpE = backproperror(input_layer, E); %array of backprop errors
 %O       [1 x inputs]
 %bpE     [neurons x 1]
 %delta_W [inputs x neurons]
-i = size(bpE, 1);
+i = size(bpE,2);
 last_layer = ANN.output_layer;
 while ~strcmp(last_layer.type, 'input')
     O = last_layer.O;
-    delta_W = -a*bpE(i)*O;
-
-    last_layer.Weights = last_layer.Weights + delta_W;
+    d = bpE{i};%backprop error
+    delta_W = -a*d*O;
+    last_layer.Weights = last_layer.Weights + delta_W.';
     last_layer = last_layer.upstream;
+    i = i-1;
 end
 
 end

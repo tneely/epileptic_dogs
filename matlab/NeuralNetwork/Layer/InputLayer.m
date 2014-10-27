@@ -13,11 +13,12 @@ classdef InputLayer < NeuralLayer
         %       A [a x 1] the activation function, may contain func. params
         function obj = InputLayer(n_in, n_neuron)
             obj@NeuralLayer(n_in, n_neuron);
-            obj.Weights = [];
+            obj.Weights = eye(n_in);
         end
         
         function Y = activate(obj, X)
-            Y = obj.activationfun(X);
+            obj.N = obj.Net(X);
+            Y = obj.activationfun(obj.N);
         end
     end
 end
