@@ -11,11 +11,13 @@ classdef(Abstract) NeuralLayer < Handle
         numNeurons;
         
         Weights;%[inputs x neurons] the matrix of synaptic weights
-        prev_net_j;%for backpropogation
+        O;%[1 x input] the last input vector for backpropogation
+        N;%[1 x neuron] array of netj for backpropogation
         
         %The activation function computes this layers output vector
-        activationFun;
-        activationFunParams;
+        activationfun;
+        delta_activationfun
+        params_activationfun;
     end
     
     methods
@@ -23,9 +25,10 @@ classdef(Abstract) NeuralLayer < Handle
         %input  S [2 x 1] size of the weight matrix
         %       A [a x 1] the activation function, may contain func. params
         function obj = NeuralLayer(S, A)
-            obj.activationFun = A(1);
-            if size(A) > 1
-                obj.activationFunParams = A(2);
+            obj.activationFun = A(1);      
+            obj.activationFunParams = A(2);
+            if size(A) > 2
+                obj.params_activationfun = A(3);
             end
             
             obj.numSynapses = S(1);
@@ -40,15 +43,16 @@ classdef(Abstract) NeuralLayer < Handle
         %
         %uses net_j and activationFun
         function Y = activate(X)
-            N = net_j(X);
-            obj.prev_net_j = N;
-            Y = obj.activationFun(N, obj.activationFunParams);
+            obj.O = X;
+            obj.N = Net(X);
+            obj.prev_net_j = obj.N;
+            Y = obj.activationFun(obj.N, obj.activationFunParams);
         end
         
         %net_j computes input vector for the layer
         %input X [1 x numInputs] the input vector into each synapse
         %output [1 x neurons] the summed input into each neuron
-        function N = net_j(X)
+        function N = Net(X)
             N = X*obj.Weights;
         end
         

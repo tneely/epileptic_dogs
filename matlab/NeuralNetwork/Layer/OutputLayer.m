@@ -9,6 +9,9 @@ classdef OutputLayer < NeuralLayer
         numSynapses;
         numNeurons;
         
+        upstream;
+        downstream = nan;
+        
         Weights;%[inputs x neurons] the matrix of synaptic weights
         prev_net_j;%for backpropogation
         
@@ -23,8 +26,9 @@ classdef OutputLayer < NeuralLayer
         %       A [a x 1] the activation function, may contain func. params
         %       softmax true | false
         %           whether output must sum to one
-        function obj = OutputLayer(S, A, smx, bin)
+        function obj = OutputLayer(S, A, u, smx, bin)
             obj@NeuralLayer(S,A);
+            obj.upstream = u;
             obj.softmax = smx;
             obj.binary = bin;
         end

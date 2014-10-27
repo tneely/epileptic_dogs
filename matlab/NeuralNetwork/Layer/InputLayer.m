@@ -7,6 +7,9 @@ classdef InputLayer < NeuralLayer
         numSynapses;
         numNeurons;
         
+        upstream = nan;
+        downstream;
+        
         Weights;%[inputs x neurons] the matrix of synaptic weights
         prev_net_j;%for backpropogation
         
