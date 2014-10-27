@@ -5,6 +5,7 @@ classdef FeedForwardNetwork < handle
     properties
         name;
         type = 'ffn';
+        layers = 0;
         
         learning_rate;
         
@@ -19,6 +20,7 @@ classdef FeedForwardNetwork < handle
         
         function obj = addInputLayer(obj, n_in, n_neurons)
             obj.input_layer = InputLayer(n_in, n_neurons);
+            obj.layers = 1 + obj.layers;
         end
         
         function [] = addHiddenLayer(obj, n_in, n_neurons)
@@ -30,6 +32,7 @@ classdef FeedForwardNetwork < handle
             curr_layer = HiddenLayer( n_in, n_neurons, last_layer);
             %new hidden layer is downstream from previous layer
             curr_layer.upstream.downstream = curr_layer;
+            obj.layers = 1 + obj.layers;
         end
         
         function [] = addOutputLayer(obj, n_in, n_neurons, sft, bin)
@@ -41,6 +44,7 @@ classdef FeedForwardNetwork < handle
                 sft, bin);
             %output layer is downstream from previous layer
             obj.output_layer.upstream.downstream = obj.output_layer;
+            obj.layers = 1 + obj.layers;
         end
         
         %predict compute network output
