@@ -5,12 +5,6 @@ classdef InputLayer < NeuralLayer
     properties
         type = 'input';
         
-        upstream = [];
-        downstream = [];
-        
-        %The activation function computes this layers output vector
-        activationFun;
-        activationFunParams;
     end
     
     methods
@@ -19,6 +13,11 @@ classdef InputLayer < NeuralLayer
         %       A [a x 1] the activation function, may contain func. params
         function obj = InputLayer(n_in, n_neuron)
             obj@NeuralLayer(n_in, n_neuron);
+            obj.Weights = [];
+        end
+        
+        function Y = activate(obj, X)
+            Y = obj.activationfun(X);
         end
     end
 end

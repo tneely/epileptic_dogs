@@ -3,13 +3,9 @@ classdef OutputLayer < NeuralLayer
     %   Detailed explanation goes here
     
     properties
-        layerType = 'output';
+        type = 'output';
         softmax;
         binary;
-
-        
-        upstream = [];
-        downstream = [];
     end
     
     methods
@@ -33,8 +29,8 @@ classdef OutputLayer < NeuralLayer
         %if output layer is using softmax, then normalize the output
         %if output layer is binary, then round the output to int after
         %softmax
-        function Y = activate(X)
-            Y = activate@NeuralNetwork(X);
+        function Y = activate(obj, X)
+            Y = activate@NeuralLayer(obj, X);
             if obj.softmax
                 Y = Y./norm(Y);
             end

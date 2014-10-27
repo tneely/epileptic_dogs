@@ -6,6 +6,8 @@ classdef FeedForwardNetwork < handle
         name;
         type = 'ffn';
         
+        learning_rate;
+        
         input_layer = nan; %inputlayer
         output_layer = nan; %outputlayer
         
@@ -46,22 +48,7 @@ classdef FeedForwardNetwork < handle
         %output Y [1 x values]
         %uses a helper function
         function Y = predict(obj, X)
-            Y = obj.predictHelper(X, obj.input_layer);
-        end
-        
-        %predictHelper is the recursive helper to predict
-        %input  X [1 x num upstream neurons]
-        %       layer the current layer we are computing for
-        %output Y [1 x values]
-        function Y = predictHelper(obj, X, layer)
-            %Base Case: output layer
-            if strcmp(layer.type, 'output')
-                Y = layer.activation(X);
-            %Recursive Case: non output layer
-            else
-                X = layer.activation(X);
-                Y = predictHelper(X, layer.downstream);
-            end
+            Y = obj.input_layer.predictHelper(X);
         end
         
     end

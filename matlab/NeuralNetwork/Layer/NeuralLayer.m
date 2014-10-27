@@ -3,20 +3,23 @@ classdef(Abstract) NeuralLayer < handle
     %   Detailed explanation goes here
     
     properties (Abstract)
-        layerType;%input | hidden | output
+        type;%input | hidden | output
     end
     
     properties
         numSynapses;
         numNeurons;
         
+        upstream = [];
+        downstream = [];
+        
         Weights;%[inputs x neurons] the matrix of synaptic weights
         O;%[1 x input] the last input vector for backpropogation
         N;%[1 x neuron] array of netj for backpropogation
         
         %The activation function computes this layers output vector
-        activationfun = @logsinfun;
-        delta_activationfun = @delta_logsinfun;
+        activationfun = @logsigfun;
+        delta_activationfun = @delta_logsigfun;
         params_activationfun;
     end
     
@@ -39,18 +42,32 @@ classdef(Abstract) NeuralLayer < handle
         %output Y [1 x neurons] the output vector from the layer
         %
         %uses net_j and activationFun
-        function Y = activate(X)
+        function Y = activate(obj, X)
             obj.O = X;
-            obj.N = Net(X);
-            obj.prev_net_j = obj.N;
-            Y = obj.activationfun(obj.N, obj.params_activationfun);
+            obj.N = obj.Net(X);
+            Y = obj.activationfun(obj.N);
         end
         
         %net_j computes input vector for the layer
         %input X [1 x numInputs] the input vector into each synapse
         %output [1 x neurons] the summed input into each neuron
-        function N = Net(X)
+        function N = Net(obj, X)
             N = X*obj.Weights;
+        end
+        
+        %predictHelper is the recursive helper to predict
+        %input  X [1 x num upstream neurons]
+        %       layer the current layer we are computing for
+        %output Y [1 x values]
+        function Y = predictHelper(obj, X)
+            %Base Case: output layer
+            if strcmp(obj.type, 'output')
+                Y = obj.activate(X);
+            %Recursive Case: non output layer
+            else
+                X = obj.activate(X);
+                Y = obj.downstream.predictHelper(X);
+            end
         end
         
     end

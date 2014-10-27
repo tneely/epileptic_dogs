@@ -15,7 +15,7 @@ if nargin == 2
     c3 = P(3);
 end
 
-Y = c1/(1 + exp(-c2*N) ) - c3;
+Y = c1./(1 + exp(-c2*N) ) - c3;
 
 end
 

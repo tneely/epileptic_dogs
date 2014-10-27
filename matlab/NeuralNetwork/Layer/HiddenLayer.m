@@ -5,9 +5,6 @@ classdef HiddenLayer < NeuralLayer
     properties
         type = 'hidden';
         
-        upstream = [];
-        downstream = [];
-        
     end
     
     methods
