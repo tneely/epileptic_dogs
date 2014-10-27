@@ -9,13 +9,13 @@ function feats = features(X,freq)
     segs = size(X,3);
     
     %features, CHANGE WHEN ADDING NEW FEATURES
-    feats = zeros(segs,7);    
+    feats = zeros(segs,6);    
     
     %fft from time to frequency domain
     nfft = 2^nextpow2(size(X,2)); %optimal fft size
     freq_dom = fft(X,nfft,2); %perform fft on times
-    freq_dom = freq_dom(:,nfft/2,:); %reduce size to half
-    freq_pow = abs(freq_dom); %create power spectrum
+    freq_dom = freq_dom(:,1:nfft/2,:); %reduce size to half
+    freq_pow = abs(freq_dom).^2; %create power spectrum
     f = (1:nfft/2)*freq/nfft; %match index to corresponding frequency
     
     %wave bands in Hz

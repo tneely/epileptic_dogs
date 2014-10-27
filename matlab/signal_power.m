@@ -6,8 +6,8 @@
 function wave = signal_power(X, range, f)
 
     wave = 0;
-    
-    for i = 1:size(X,1);
+
+    for i = 1:size(X,1); %for each channel
         
         [~, left] = min(abs(f - range(1)));
         [~, right] = min(abs(f - range(2)));
