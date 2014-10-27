@@ -3,15 +3,10 @@ classdef InputLayer < NeuralLayer
     %   Detailed explanation goes here
     
     properties
-        layerType = 'input';
-        numSynapses;
-        numNeurons;
+        type = 'input';
         
-        upstream = nan;
-        downstream;
-        
-        Weights;%[inputs x neurons] the matrix of synaptic weights
-        prev_net_j;%for backpropogation
+        upstream = [];
+        downstream = [];
         
         %The activation function computes this layers output vector
         activationFun;
@@ -22,8 +17,8 @@ classdef InputLayer < NeuralLayer
         %NeuralLayer Constructor
         %input  S [2 x 1] size of the weight matrix
         %       A [a x 1] the activation function, may contain func. params
-        function obj = InputLayer(S, A)
-            obj@NeuralLayer(S,A);
+        function obj = InputLayer(n_in, n_neuron)
+            obj@NeuralLayer(n_in, n_neuron);
         end
     end
 end

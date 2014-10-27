@@ -1,4 +1,4 @@
-function [] = backpropagation( ANN, X, T )
+function E = backpropagation( ANN, X, T )
 %backpropagation Summary of this function goes here
 %   input   ANN
 %           X

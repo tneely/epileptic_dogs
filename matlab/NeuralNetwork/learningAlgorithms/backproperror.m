@@ -7,7 +7,7 @@ function BPE = backproperror( input_layer, E )
 %           input_layer 
 %           
 
-BPE = backproperrorHelper(input_layer, E);
+BPE = backproperrorHelper(input_layer.downstream, E);
     
 end
 

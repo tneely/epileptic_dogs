@@ -1,4 +1,4 @@
-classdef(Abstract) NeuralLayer < Handle
+classdef(Abstract) NeuralLayer < handle
     %NerualLayer 
     %   Detailed explanation goes here
     
@@ -15,8 +15,8 @@ classdef(Abstract) NeuralLayer < Handle
         N;%[1 x neuron] array of netj for backpropogation
         
         %The activation function computes this layers output vector
-        activationfun;
-        delta_activationfun
+        activationfun = @logsinfun;
+        delta_activationfun = @delta_logsinfun;
         params_activationfun;
     end
     
@@ -24,17 +24,14 @@ classdef(Abstract) NeuralLayer < Handle
         %NeuralLayer Constructor
         %input  S [2 x 1] size of the weight matrix
         %       A [a x 1] the activation function, may contain func. params
-        function obj = NeuralLayer(S, A)
-            obj.activationFun = A(1);      
-            obj.activationFunParams = A(2);
-            if size(A) > 2
-                obj.params_activationfun = A(3);
-            end
+        function obj = NeuralLayer(n_in, n_neuron)            
+            obj.numSynapses = n_in;
+            obj.numNeurons = n_neuron;
             
-            obj.numSynapses = S(1);
-            obj.numNeurons = S(2);
+            %obj.activationfun = act;      
+            %obj.params_activationfun = dact;
             
-            obj.Weights = seedWeights(S);
+            obj.Weights = rand(obj.numSynapses, obj.numNeurons);
         end
         
         %activate computes the output vector from the layer
@@ -46,7 +43,7 @@ classdef(Abstract) NeuralLayer < Handle
             obj.O = X;
             obj.N = Net(X);
             obj.prev_net_j = obj.N;
-            Y = obj.activationFun(obj.N, obj.activationFunParams);
+            Y = obj.activationfun(obj.N, obj.params_activationfun);
         end
         
         %net_j computes input vector for the layer
@@ -56,12 +53,6 @@ classdef(Abstract) NeuralLayer < Handle
             N = X*obj.Weights;
         end
         
-    end
-    
-    methods (Static)
-        function W = seedWeights(S)
-            W = rand(S(1), S(2));
-        end
     end
     
         
