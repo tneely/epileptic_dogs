@@ -27,11 +27,10 @@ function cross_val(train, N)
         intTrain([floor(m / N * k + 1) : floor(m / N * (k + 1))]) = [];
         
         prePreTest = prePerm([floor(m / N * k + 1) : floor(m / N * (k + 1))]);
-        preTrain = prePerm;
-        preTrain([floor(m / N * k + 1) : floor(m / N * (k + 1))]) = [];
+        prePreTrain = prePerm;
+        prePreTrain([floor(m / N * k + 1) : floor(m / N * (k + 1))]) = [];
         
-        preTest = I(prePreTest);
-        preTrain = 
+        preTrain = I(
     
         theta = q5_train(X(indx_other,:), Y(indx_other,:), l, mode);
         pred_Y = q5_predict(theta,X(temp_test,:),mode);
