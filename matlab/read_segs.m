@@ -18,10 +18,10 @@ function [segX, segY, freq] = read_segs()
         segName = fieldnames(seg);
         seg = getfield(seg, segName{1});
         data = seg.data;
-        freq = seg.sampling_frequency;
         
-        if i == 1 %create first to specify matrix dimensions
+        if i == 1 %create first to specify matrix dimensions, get freq
             segX = zeros(size(data));
+            freq = seg.sampling_frequency;
         end
         
         segX(:,:,i) = data;
