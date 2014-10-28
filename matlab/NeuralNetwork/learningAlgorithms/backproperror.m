@@ -24,7 +24,7 @@ if strcmp(layer.type, 'output')
     BPE{i} = (D*E).';
 else
     BPE = backproperrorHelper(layer.downstream, E, i + 1);
-    BPE{i} = (D*layer.Weights*BPE{i+1}).';
+    BPE{i} = (D*layer.downstream.Weights*BPE{i+1});
 end
 
 end

@@ -17,6 +17,7 @@ classdef InputLayer < NeuralLayer
         end
         
         function Y = activate(obj, X)
+            obj.O = X;
             obj.N = obj.Net(X);
             Y = obj.activationfun(obj.N);
         end

@@ -20,8 +20,10 @@ i = size(bpE,2);
 last_layer = ANN.output_layer;
 while ~strcmp(last_layer.type, 'input')
     O = last_layer.O;
+
     d = bpE{i};%backprop error
     delta_W = -a*d*O;
+    last_layer.type
     last_layer.Weights = last_layer.Weights + delta_W.';
     last_layer = last_layer.upstream;
     i = i-1;
