@@ -23,7 +23,6 @@ while ~strcmp(last_layer.type, 'input')
 
     d = bpE{i};%backprop error
     delta_W = -a*d*O;
-    last_layer.type
     last_layer.Weights = last_layer.Weights + delta_W.';
     last_layer = last_layer.upstream;
     i = i-1;

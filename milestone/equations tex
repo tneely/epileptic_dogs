@@ -1,0 +1,6 @@
+$\Delta W = -\alpha \delta^{(i)} \hat{o}$\\
+where\\
+$\hat{o}$ is the input to a given layer\\  
+$\delta^{(l)} =D_l e$ base case (output layer)\\
+$\:\: \delta^{(i)} = D_i W_{i + 1}\delta^{i + 1}$ recursive case (hidden layer)\\
+$D$ is diagonal derivative matrix of activation function
