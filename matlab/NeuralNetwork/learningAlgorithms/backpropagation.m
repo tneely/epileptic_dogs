@@ -6,7 +6,7 @@ function E = backpropagation( ANN, X, T )
 %   output none, but the network gets updated
 
 Y = ANN.predict(X);
-E = leastsquares(Y, T);
+E = Error(Y, T);
 
 input_layer = ANN.input_layer;
 a = ANN.learning_rate;

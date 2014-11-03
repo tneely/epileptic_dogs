@@ -10,7 +10,7 @@ net.addOutputLayer(40,1, 0, 0);
 
 trials = 10;
 error = zeros(trials,1);
-for trial = 1:1000
+for trial = 1:100
    error_accum=0; 
    for i = 1:size(feats)
        error_accum = backpropagation(net, feats(i,:), segY(i,:));
