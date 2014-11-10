@@ -1,11 +1,12 @@
 %{
     Defines spectral edge feature to be used in neural network from 
-    given ChannelxTime matrix segment. 
+    given ChannelxFreq matrix segment. 
 %}
 
 function sef = spectral_edge(X, f, p)
-
-    sef = 0; %zeros(size(X,1), 1);
+    
+    chnls = size(X,1);
+    sef = zeros(1,chnls);
 
     for i = 1:size(X,1);
         
@@ -13,11 +14,8 @@ function sef = spectral_edge(X, f, p)
         xCum = cumsum(xNorm);
         [~, indx] = min(abs(xCum - p));
         
-        %sef(i) = f(indx);
-        sef = sef + f(indx);
+        sef(i) = f(indx);
         
     end
-    
-    sef = sef / size(X,1); %avg of all channels
 
 end
