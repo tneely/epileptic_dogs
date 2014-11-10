@@ -1,13 +1,16 @@
 %{
     Reads in all segments from EEG set and creates list of all segments
     with identification information.
+
+    segX: contains segment information (ChannelsxTimesxSegments)
+    segY: identifies preictal (1) and interictal (0) segments (1xSegments)
+    freq: scalar that specifies recording frequency
 %}
 
 function [segX, segY, freq] = read_segs() 
     
     [fileName,pathName] = uigetfile('*.mat','Select the MATLAB code file','multiselect','on');
     
-    segX = zeros(size(fileName));
     segY = zeros(size(fileName));
     
     for i = 1:length(fileName)
