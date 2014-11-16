@@ -16,14 +16,16 @@ end
 %$\delta^{i} = D_lE if hidden layer$
 function BPE = backproperrorHelper(layer, E, i)
 
-%compute the derivative matrix
+%compute the derivative
 D = makeD(layer.N, layer.delta_activationfun);
 
 %Base Case
 if strcmp(layer.type, 'output')
-    BPE{i} = (D*E).';
+    BPE{i} = (E).';
 else
     BPE = backproperrorHelper(layer.downstream, E, i + 1);
+    size(layer.downstream.Weights)
+    size(D)
     BPE{i} = (D*layer.downstream.Weights*BPE{i+1});
 end
 

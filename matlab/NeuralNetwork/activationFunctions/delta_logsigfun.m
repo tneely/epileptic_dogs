@@ -6,7 +6,7 @@ function Y = delta_logsigfun( N )
 %   output:
 %           Y []
 
-Y = sigfun(N).*(1 - sigfun(N));
+Y = logsigfun(N).*(1 - logsigfun(N));
 
 end
 

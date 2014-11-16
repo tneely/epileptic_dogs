@@ -1,4 +1,4 @@
-function E = leastsquares( Y, T )
+function E = leastsquares( T, Y )
 %lastsquares computes the least squares error
 %   input
 %           Y [1 x m] output values
@@ -6,6 +6,6 @@ function E = leastsquares( Y, T )
 %   output
 %           E [m x 1] m error terms
 
-E = (.5*(Y - T).^2).';
+E = (.5*(T - Y).^2).';
 end
 

@@ -1,10 +1,10 @@
 %Create network
 net = FeedForwardNetwork();
-net.learning_rate = .5;
+net.learning_rate = 10;
 net.addInputLayer(2,2);
 net.addHiddenLayer(2,2);
-net.addOutputLayer(2,1,1,0);
-
+net.addOutputLayer(2,1,0,0);
+net.input_layer.downstream.Weights
 %test input xor table
 x1 = [1,1];
 x2 = [1,0];
@@ -30,14 +30,15 @@ e = zeros(trials);
 %train
 for trial = 1:trials
     error = 0;
-    error = error + backpropagation(net, X(1,:), T(1));
-    error = error + backpropagation(net, X(2,:), T(2));
-    error = error + backpropagation(net, X(3,:), T(3));
-    error = error + backpropagation(net, X(4,:), T(4));
-    
-    W11(trial) = net.output_layer.Weights(1);
-    W12(trial) = net.output_layer.Weights(2);
-    e(trial) = error / 8;
+    i = randi(4);
+    error = error + backpropagation(net, X(i,:), T(i));
+    i = randi(4);
+    error = error + backpropagation(net, X(i,:), T(i));
+    i = randi(4);
+    error = error + backpropagation(net, X(i,:), T(i));
+    i = randi(4);
+    error = error + backpropagation(net, X(i,:), T(i));
+    e(trial) = error / 4;
 end
 
 ll = net.predict(x1)
@@ -46,13 +47,8 @@ ol = net.predict(x3)
 oo = net.predict(x4)
 
 figure;
-subplot(2,1,1);
+subplot(1,1,1);
 plot(1:trials, e);
 title('Gradient Descent');
 ylabel('least squared error');
 xlabel('trial');
-
-subplot(2,1,2);
-plot3(W11, W12, e);
-grid on
-title('Error per weight');

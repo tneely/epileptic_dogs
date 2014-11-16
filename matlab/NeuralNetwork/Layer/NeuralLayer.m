@@ -34,7 +34,7 @@ classdef(Abstract) NeuralLayer < handle
             %obj.activationfun = act;      
             %obj.params_activationfun = dact;
             
-            obj.Weights = rand(obj.numSynapses, obj.numNeurons);
+            obj.Weights = rand(obj.numSynapses + 1, obj.numNeurons);
         end
         
         %activate computes the output vector from the layer
@@ -43,9 +43,9 @@ classdef(Abstract) NeuralLayer < handle
         %
         %uses net_j and activationFun
         function Y = activate(obj, X)
-            obj.O = X;
+            obj.O = [X, 1];
             obj.N = obj.Net(obj.O);
-            Y = obj.activationfun(obj.N);
+            Y = logsigfun(obj.N);
         end
         
         %net_j computes input vector for the layer
