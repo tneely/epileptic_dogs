@@ -43,7 +43,7 @@ classdef(Abstract) NeuralLayer < handle
         %
         %uses net_j and activationFun
         function Y = activate(obj, X)
-            obj.O = [X, 1];
+            obj.O = [X,1];
             obj.N = obj.Net(obj.O);
             Y = logsigfun(obj.N);
         end

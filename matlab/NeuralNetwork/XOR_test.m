@@ -10,9 +10,9 @@ x1 = [1,1];
 x2 = [1,0];
 x3 = [0,1];
 x4 = [0,0];
-t1 = 0;
-t2 = 1;
-t3 = 1;
+t1 = 1;
+t2 = 0;
+t3 = 0;
 t4 = 0;
 
 X = [x1;x2;x3;x4];
@@ -23,7 +23,7 @@ lo = net.predict(x2)
 ol = net.predict(x3)
 oo = net.predict(x4)
 
-trials = 100;
+trials = 1000;
 W11 = zeros(trials);
 W12 = zeros(trials);
 e = zeros(trials);
