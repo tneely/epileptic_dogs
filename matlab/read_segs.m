@@ -15,6 +15,8 @@ function [segX, segY, freq] = read_segs()
     
     for i = 1:length(fileName)
         
+        fprintf('Reading in file %d... ',i)
+        
         fullName = fullfile(pathName,fileName{i});
         
         seg = load(fullName);
@@ -32,7 +34,9 @@ function [segX, segY, freq] = read_segs()
         if isempty(strfind(fileName{i}, 'interictal')) %then is preictal
             segY(i) = 1;
         end
-                
+             
+        fprintf('done! \n')
+        
     end
     
 end
