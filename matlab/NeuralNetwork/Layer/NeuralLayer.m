@@ -35,8 +35,8 @@ classdef(Abstract) NeuralLayer < handle
             %obj.activationfun = act;      
             %obj.params_activationfun = dact;
             
-            obj.Weights = rand(obj.numSynapses, obj.numNeurons);
-            obj.bias = rand(1, obj.numNeurons);
+            obj.Weights = (rand(obj.numSynapses, obj.numNeurons)-.5)*10;
+            obj.bias = (rand(1, obj.numNeurons)-.5)*10;
         end
         
         %activate computes the output vector from the layer

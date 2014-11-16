@@ -24,8 +24,6 @@ if strcmp(layer.type, 'output')
     BPE{i} = (E).';
 else
     BPE = backproperrorHelper(layer.downstream, E, i + 1);
-    %size(D)
-    %size(layer.downstream.Weights)
     BPE{i} = (D*layer.downstream.Weights*BPE{i+1});
 end
 
