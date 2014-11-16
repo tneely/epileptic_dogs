@@ -7,6 +7,5 @@ function E = leastsquares( Y, T )
 %           E [m x 1] m error terms
 
 E = (.5*(Y - T).^2).';
-E
 end
 
