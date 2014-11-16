@@ -3,7 +3,7 @@
     given ChannelxFreq matrix segment. Output is 1xchannels.
 %}
 
-function wave = signal_power(X, range, f)
+function wave = average_power(X, range, f)
 
     chnls = size(X,1);
     wave = zeros(1,chnls);
@@ -13,7 +13,7 @@ function wave = signal_power(X, range, f)
         [~, left] = min(abs(f - range(1)));
         [~, right] = min(abs(f - range(2)));
         
-        wave(i) = max(X(i,left:right-1));
+        wave(i) = mean(X(i,left:right-1));
         
     end
 

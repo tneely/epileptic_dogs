@@ -1,6 +1,6 @@
 %{
     Defines spectral edge feature to be used in neural network from 
-    given ChannelxFreq matrix segment. 
+    given ChannelxFreq matrix segment. Output is 1xchannels.
 %}
 
 function sef = spectral_edge(X, f, p)
