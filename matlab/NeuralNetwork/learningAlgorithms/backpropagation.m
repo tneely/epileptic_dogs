@@ -7,7 +7,6 @@ function E = backpropagation( ANN, X, T )
 
 Y = ANN.predict(X);
 E = Error(Y, T);
-
 input_layer = ANN.input_layer;
 a = ANN.learning_rate;
 bpE = backproperror(input_layer, E); %array of backprop errors
@@ -17,15 +16,16 @@ bpE = backproperror(input_layer, E); %array of backprop errors
 %bpE     [neurons x 1]
 %delta_W [inputs x neurons]
 i = size(bpE,2);
-last_layer = ANN.output_layer;
-while ~strcmp(last_layer.type, 'input')
-    O = last_layer.O;
+curr_layer = ANN.output_layer;
+while ~strcmp(curr_layer.type, 'input')
+    O = curr_layer.O; %Input to the layer
 
     d = bpE{i};%backprop error
     delta_W = -a*d*O;
-    last_layer.Weights = last_layer.Weights + delta_W.';
-    last_layer = last_layer.upstream;
+    delta_W
+    curr_layer.Weights = curr_layer.Weights + delta_W.';
+    curr_layer = curr_layer.upstream;
     i = i-1;
 end
-
+E = leastsquares(Y, T);
 end

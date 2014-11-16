@@ -1,11 +1,11 @@
-function D = makeD( N, delta_activity )
+function D = makeD( Net, delta_activity )
 %derivatives computes the derivative matrix for matrix form backpropagation
 %   input
 %      layer the neural layer
-%      input N [n x 1] the net inputs to each neuron
+%      input Net [n x 1] the net inputs to each neuron
 %   output
 %       D [n x n] identity matrix of derivative of output
-D = diag(delta_activity(N));
+D = diag(delta_activity(Net));
 
 end
 
