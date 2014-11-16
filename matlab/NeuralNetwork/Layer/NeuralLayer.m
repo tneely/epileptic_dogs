@@ -13,6 +13,7 @@ classdef(Abstract) NeuralLayer < handle
         upstream = [];
         downstream = [];
         
+        bias;
         Weights;%[inputs x neurons] the matrix of synaptic weights
         O;%[1 x input] the last input vector for backpropogation
         N;%[1 x neuron] array of netj for backpropogation
@@ -34,7 +35,8 @@ classdef(Abstract) NeuralLayer < handle
             %obj.activationfun = act;      
             %obj.params_activationfun = dact;
             
-            obj.Weights = rand(obj.numSynapses + 1, obj.numNeurons);
+            obj.Weights = rand(obj.numSynapses, obj.numNeurons);
+            obj.bias = rand(1, obj.numNeurons);
         end
         
         %activate computes the output vector from the layer
@@ -43,8 +45,8 @@ classdef(Abstract) NeuralLayer < handle
         %
         %uses net_j and activationFun
         function Y = activate(obj, X)
-            obj.O = [X,1];
-            obj.N = obj.Net(obj.O);
+            obj.O = X;
+            obj.N = obj.Net(obj.O) + obj.bias;
             Y = logsigfun(obj.N);
         end
         

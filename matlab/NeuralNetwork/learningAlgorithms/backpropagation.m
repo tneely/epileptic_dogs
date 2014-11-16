@@ -22,6 +22,7 @@ while ~strcmp(curr_layer.type, 'input')
     d = bpE{i};%backprop error
     delta_W = -a.*d*O;
     curr_layer.Weights = curr_layer.Weights + delta_W.';
+    curr_layer.bias = curr_layer.bias - (a.*d).';
     curr_layer = curr_layer.upstream;
     i = i-1;
 end
