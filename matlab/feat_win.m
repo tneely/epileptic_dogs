@@ -5,8 +5,6 @@
 
 function feats = feat_win(X,freq,windows,overlap,spec_edge,sig_pow,avg_pow)
     
-    tic
-    
     %init and window division
     feats = [];
     pts = size(X,2);
@@ -21,8 +19,6 @@ function feats = feat_win(X,freq,windows,overlap,spec_edge,sig_pow,avg_pow)
         fprintf('Window %d finished. \n',i) 
         fprintf('\n')
     end     
-
-    toc
     
 end
         
