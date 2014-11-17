@@ -14,7 +14,7 @@ function sef = spectral_edge(X, f, p)
         xCum = cumsum(xNorm);
         [~, indx] = min(abs(xCum - p));
         
-        sef(i) = f(indx);
+        sef(i) = f(indx)/1000; %in kHz
         
     end
 

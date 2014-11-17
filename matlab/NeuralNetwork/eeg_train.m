@@ -14,6 +14,8 @@
 
 function [error, net ]= eeg_train(X, Y, trials, a, hidden)
 
+    tic 
+    
     net = FeedForwardNetwork();
     
     [numSegs, numFeats] = size(X);
@@ -58,6 +60,8 @@ function [error, net ]= eeg_train(X, Y, trials, a, hidden)
         fprintf('done! \n')
         
     end
+    
+    toc
     
     figure;
     subplot(1,1,1);
