@@ -29,8 +29,9 @@ function [error, net ]= eeg_train(X, Y, trials, a)
     pre_rate = a*(1-pre_ratio);
     
     net.addInputLayer(numFeats,numFeats);
-    net.addHiddenLayer(floor(numFeats/2), hidden);
-    net.addOutputLayer(hidden,1,0,0);
+    hiddenNodes = floor(numFeats/2);
+    net.addHiddenLayer(numFeats, hiddenNodes);
+    net.addOutputLayer(hiddenNodes,1,0,0);
     
     error = zeros(trials,1);
     
@@ -55,7 +56,7 @@ function [error, net ]= eeg_train(X, Y, trials, a)
         end
         
         error(trial) = accum_error / numSegs;
-        fprintf('Weights %d', net.output_layer.Weights)
+        
         fprintf('done! \n')
         
     end
