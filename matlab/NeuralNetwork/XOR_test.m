@@ -23,7 +23,7 @@ lo = net.predict(x2)
 ol = net.predict(x3)
 oo = net.predict(x4)
 
-trials = 1000;
+trials = 2000;
 W11 = zeros(trials);
 W12 = zeros(trials);
 e = zeros(trials);
@@ -56,10 +56,10 @@ title('Gradient Descent');
 ylabel('Least Squared Error');
 xlabel('Trial');
 
-subplot(2,1,2);
-plot3(W11, W12, e);
-grid on
-title('Gradient Descent');
-ylabel('least squared error');
-xlabel('trial');
+% subplot(2,1,2);
+% plot3(W11, W12, e);
+% grid on
+% title('Gradient Descent');
+% ylabel('least squared error');
+% xlabel('trial');
 
