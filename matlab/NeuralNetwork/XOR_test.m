@@ -50,5 +50,5 @@ figure;
 subplot(1,1,1);
 plot(1:trials, e);
 title('Gradient Descent');
-ylabel('least squared error');
-xlabel('trial');
+ylabel('Least Squared Error');
+xlabel('Trial');
