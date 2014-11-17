@@ -1,0 +1,5 @@
+Chestnutt, Catherine. "Feature Generation of EEG Data Using Wavelet Analysis." Thesis. Texas Tech University. May, 2012.
+Heaton, Jeff. "Introduction to Neural Networks for Java." 2nd Edition. Heaton Research, Inc. 1 October, 2008.
+HowbertJJ, Patterson EE, Stead SM, BrinkmannB, VasoliV, CrepeauD, ViteCH, SturgesB, RuedebuschV, MavooriJ, LeydeK, Sheffield WD, LittB, Worrell GA (2014) Forecasting seizures in dogs with naturally occurring epilepsy. PLoSOne 9(1):e81920.
+Leverington, David. "A Basic Introduction to Feedforward Backpropagation Neural Networks." Texas Tech University. Web. 2009.
+Maiwald, Thomas, et al. "Comparison of three nonlinear seizure prediction methods by means of the seizure prediction characteristic." PhysicaD: nonlinear phenomena 194.3 (2004): 357-368.
