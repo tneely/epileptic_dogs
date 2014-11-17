@@ -6,13 +6,12 @@
     Y : a 1xsegments matrix indicating classes (1=preictal, 0 = interictal)
     trials : scalar, number of trials to run
     a : scalar, value for learning rate
-    hidden : scalar, indicates number of hidden layers
 
     OUTPUT
     error : a 1xsegments vector of error per trial
 %}
 
-function [error, net ]= eeg_train(X, Y, trials, a, hidden)
+function [error, net ]= eeg_train(X, Y, trials, a)
 
     tic 
     
@@ -30,7 +29,7 @@ function [error, net ]= eeg_train(X, Y, trials, a, hidden)
     pre_rate = a*(1-pre_ratio);
     
     net.addInputLayer(numFeats,numFeats);
-    net.addHiddenLayer(numFeats, hidden);
+    net.addHiddenLayer(floor(numFeats/2), hidden);
     net.addOutputLayer(hidden,1,0,0);
     
     error = zeros(trials,1);
