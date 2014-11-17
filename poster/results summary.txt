@@ -1,0 +1,3 @@
+Summary
+
+Using the features generated from raw EEG data, our neural network is capable of learning a system to successfully classify preictal and interictal states. Cross validation reveals sensitivity rates above 90% across all dogs, with relatively low false positive rates. Becuase features were kept simple, conversion from raw data to functional data is quick and requires little computational power while retaining relevant information. Our neural network is capable of learning each individual quickly over few trials, with cross validation over 250 trials producing only marginally worse results than over 500 trials (data not shown). In a real world scenario, we feel our model would have high success across all people.
