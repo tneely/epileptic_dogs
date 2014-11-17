@@ -39,6 +39,9 @@ for trial = 1:trials
     i = 1;
     error = error + backpropagation(net, X(i,:), T(i));
     e(trial) = error / 4;
+    
+    W11(trial) = sum(sum(net.output_layer.Weights)) + sum(sum(net.output_layer.upstream.Weights));
+    W12(trial) = sum(sum(net.output_layer.bias)) + sum(sum(net.output_layer.upstream.bias));
 end
 
 ll = net.predict(x1)
@@ -47,8 +50,16 @@ ol = net.predict(x3)
 oo = net.predict(x4)
 
 figure;
-subplot(1,1,1);
+subplot(2,1,1);
 plot(1:trials, e);
 title('Gradient Descent');
 ylabel('Least Squared Error');
 xlabel('Trial');
+
+subplot(2,1,2);
+plot3(W11, W12, e);
+grid on
+title('Gradient Descent');
+ylabel('least squared error');
+xlabel('trial');
+

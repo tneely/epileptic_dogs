@@ -12,7 +12,7 @@
     error : a 1xsegments vector of error per trial
 %}
 
-function error = eeg_train(X, Y, trials, a, hidden)
+function [error, net ]= eeg_train(X, Y, trials, a, hidden)
 
     net = FeedForwardNetwork();
     
@@ -24,7 +24,7 @@ function error = eeg_train(X, Y, trials, a, hidden)
     
     net.addInputLayer(numFeats,numFeats);
     net.addHiddenLayer(numFeats, hidden);
-    net.addOutputLayer(hidden,1,0,1);
+    net.addOutputLayer(hidden,1,0,0);
     
     error = zeros(trials,1);
     
@@ -49,7 +49,7 @@ function error = eeg_train(X, Y, trials, a, hidden)
         end
         
         error(trial) = accum_error / numSegs;
-        
+        fprintf('Weights %d', net.output_layer.Weights)
         fprintf('done! \n')
         
     end
