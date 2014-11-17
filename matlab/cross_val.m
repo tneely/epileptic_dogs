@@ -4,19 +4,17 @@
     portions (?)
 %}
 
-function [sensitivity, fpr] = cross_val(train, N) 
+function [sensitivity, fpr] = cross_val(X,Y,N) 
 
-    [segX, segY, freq] = read_segs(); 
-    
-    feats = features(segX, freq);
-    I = find(segY); %get indices of preictal segments
+    [segs,feats] = size(X);
+    numPre = sum(Y);
+    numInt = segs - numPre;
+    I = find(Y); %get indices of preictal segments
     
     %random index permutation
     rand('twister', 0);
-    tot = size(segX,3);
-    pre = size(I,2);
-    intPerm = randperm(tot-pre);
-    prePerm = randperm(pre);
+    intPerm = randperm(numInt);
+    prePerm = randperm(numPre);
     
     %quality measures
     sensitivity = 0;
@@ -24,28 +22,33 @@ function [sensitivity, fpr] = cross_val(train, N)
     
     for k = 0:(N-1)
         
-        intTest = intPerm([floor((tot-pre) / N * k + 1) : floor((tot-pre) / N * (k + 1))]);
+        intTest = intPerm([floor((numInt) / N * k + 1) : floor((numInt) / N * (k + 1))]);
         intTrain = intPerm;
         intTrain(intTest) = [];
         
-        prePreTest = prePerm([floor(pre / N * k + 1) : floor(pre / N * (k + 1))]);
+        prePreTest = prePerm([floor(numPre / N * k + 1) : floor(numPre / N * (k + 1))]);
         preTest = I(prePreTest);
         preTrain = I;
         preTrain(prePreTest) = [];
         
-        tester = intTest + preTest;
-        trainer = intTrain + preTrain;
+        tester = [intTest, preTest];
+        trainer = [intTrain, preTrain];
     
-        weights = train(feats(trainer,:), segY(1,trainer));
-        predY = predict(weights,feats(tester,:));
-        diff = segY - predY;
+        [error,net] = eeg_train(X(trainer,:),Y(1,trainer),500,.3,0.85,0.05);
+
+        predY = [];
+        for i = 1:length(tester)
+            predY = [predY, net.predict(X(tester(i),:))];
+        end
+
+        diff = Y(1,tester) - predY;
         dist = histc(diff, -1:1); %-1 if false positive, 1 if miss
-        sensitivity = sensitivity + dist(3);
-        fpr = fpr + dist(1);
+        sensitivity = sensitivity + (numPre - dist(3))/numPre;
+        fpr = fpr + dist(1)/numInt;
         
     end
     
-    sensitivity = (pre-sensitivity)/pre;
-    fpr = fpr / (tot-pre);
+    sensitivity = sensitivity/N;
+    fpr = fpr/N;
     
 end

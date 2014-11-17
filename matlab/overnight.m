@@ -1,9 +1,5 @@
-[error01 , net01] = eeg_train(feats5_1w_0o,Y5,500,.1);
-[error03 , net03] = eeg_train(feats5_1w_0o,Y5,500,.3);
-[error05 , net05] = eeg_train(feats5_1w_0o,Y5,500,.5);
-[error07 , net07] = eeg_train(feats5_1w_0o,Y5,500,.7);
-[error10 , net10] = eeg_train(feats5_1w_0o,Y5,500,1.0);
-[error15 , net15] = eeg_train(feats5_1w_0o,Y5,500,1.5);
-[error20 , net20] = eeg_train(feats5_1w_0o,Y5,500,2.0);
-[error30 , net30] = eeg_train(feats5_1w_0o,Y5,500,3.0);
-[error50 , net50] = eeg_train(feats5_1w_0o,Y5,500,5.0);
+[error1 , net1] = eeg_train(feats1_1w_0o,Y5,500,.3,0.85,0.05);
+[error2 , net2] = eeg_train(feats2_1w_0o,Y5,500,.3,0.85,0.05);
+[error3 , net3] = eeg_train(feats3_1w_0o,Y5,500,.3,0.85,0.05);
+[error4 , net4] = eeg_train(feats4_1w_0o,Y5,500,.3,0.85,0.05);
+[error5 , net5] = eeg_train(feats5_1w_0o,Y5,500,.3,0.85,0.05);

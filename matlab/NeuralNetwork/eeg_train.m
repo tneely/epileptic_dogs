@@ -64,11 +64,11 @@ function [error, net ]= eeg_train(X, Y, trials, a, m, d)
     
     toc
     
-    figure;
-    subplot(1,1,1);
-    plot(1:trials, error);
-    title('Gradient Descent');
-    ylabel('Least Squared Error');
-    xlabel('Trial');
+%     figure;
+%     subplot(1,1,1);
+%     plot(1:trials, error);
+%     title('Gradient Descent');
+%     ylabel('Least Squared Error');
+%     xlabel('Trial');
     
 end
