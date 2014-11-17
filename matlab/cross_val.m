@@ -4,7 +4,7 @@
     portions (?)
 %}
 
-function [sensitivity, fpr] = cross_val(X,Y,N) 
+function [sensitivity, fpr] = cross_val(X,Y,N,T) 
 
     [segs,feats] = size(X);
     numPre = sum(Y);
@@ -22,6 +22,8 @@ function [sensitivity, fpr] = cross_val(X,Y,N)
     
     for k = 0:(N-1)
         
+        fprintf('Starting fold %d of %d... \n', k+1, N)
+        
         intTest = intPerm([floor((numInt) / N * k + 1) : floor((numInt) / N * (k + 1))]);
         intTrain = intPerm;
         intTrain(intTest) = [];
@@ -34,11 +36,11 @@ function [sensitivity, fpr] = cross_val(X,Y,N)
         tester = [intTest, preTest];
         trainer = [intTrain, preTrain];
     
-        [error,net] = eeg_train(X(trainer,:),Y(1,trainer),500,.3,0.85,0.05);
+        [error,net] = eeg_train(X(trainer,:),Y(1,trainer),T,.3,0.85,0.05);
 
         predY = [];
         for i = 1:length(tester)
-            predY = [predY, net.predict(X(tester(i),:))];
+            predY = [predY, round(net.predict(X(tester(i),:)))];
         end
 
         diff = Y(1,tester) - predY;
