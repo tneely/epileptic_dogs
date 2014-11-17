@@ -45,11 +45,11 @@ function [error, net ]= eeg_train(X, Y, trials, a)
         
         for i = indPerm
             
-            %if Y(1,i)
-            %    net.learning_rate = pre_rate;
-            %else
-            %    net.learning_rate = inter_rate;
-            %end
+            if Y(1,i)
+               net.learning_rate = pre_rate;
+            else
+               net.learning_rate = inter_rate;
+            end
             
             accum_error = accum_error + backpropagation(net, X(i,:), Y(1,i));
         end
