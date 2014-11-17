@@ -17,6 +17,11 @@ function [error, net ]= eeg_train(X, Y, trials, a, hidden)
     net = FeedForwardNetwork();
     
     [numSegs, numFeats] = size(X);
+
+    %normalize data
+    for i = 1:numSegs
+        X(i,:) = (X(i,:)-min(X(i,:)))/(max(X(i,:))-min(X(i,:)));
+    end
     
     pre_ratio = sum(Y)/numSegs;
     inter_rate = a*(pre_ratio);
