@@ -11,12 +11,12 @@
     error : a 1xsegments vector of error per trial
 %}
 
-function [error, net ]= eeg_train(X, Y, trials, a)
+function [error, net ]= eeg_train(X, Y, trials, a, m)
 
     tic 
     
     net = FeedForwardNetwork();
-    
+    net.momentum = m;
     [numSegs, numFeats] = size(X);
 
     %normalize data

@@ -15,6 +15,8 @@ classdef InputLayer < NeuralLayer
             obj@NeuralLayer(n_in, n_neuron);
             obj.Weights = eye(n_in);
             obj.bias = [];
+            obj.Mbias = [];
+            obj.MWeights = [];
         end
         
         function Y = activate(obj, X)

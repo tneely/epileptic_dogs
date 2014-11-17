@@ -13,6 +13,9 @@ classdef(Abstract) NeuralLayer < handle
         upstream = [];
         downstream = [];
         
+        MWeights; %momentum weights of last trial
+        Mbias; %momentum bias of last trial
+        
         bias;
         Weights;%[inputs x neurons] the matrix of synaptic weights
         O;%[1 x input] the last input vector for backpropogation
@@ -37,6 +40,9 @@ classdef(Abstract) NeuralLayer < handle
             
             obj.Weights = (rand(obj.numSynapses, obj.numNeurons)-.5)*2;
             obj.bias = (rand(1, obj.numNeurons)-.5)*2;
+            
+            obj.MWeights = 0.*obj.Weights;
+            obj.Mbias = 0.*obj.bias;
         end
         
         %activate computes the output vector from the layer
