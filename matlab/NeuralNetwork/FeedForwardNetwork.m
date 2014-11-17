@@ -7,7 +7,9 @@ classdef FeedForwardNetwork < handle
         type = 'ffn';
         layers = 0;
         
-        learning_rate;
+        learning_rate=.3;
+        momentum=0;
+        decay = 0;
         
         input_layer = nan; %inputlayer
         output_layer = nan; %outputlayer
