@@ -52,11 +52,13 @@ function [sensitivity, fpr] = cross_val(X,Y,N,T)
         for i = 1:length(tester)
             predY = [predY, round(net.predict(X(tester(i),:)))];
         end
-
+        
+        testPre = sum(Y(1,tester));
+        testInt = length(tester) - testPre;
         diff = Y(1,tester) - predY;
         dist = histc(diff, -1:1); %-1 if false positive, 1 if miss
-        sensitivity = sensitivity + (numPre - dist(3))/numPre;
-        fpr = fpr + dist(1)/numInt;
+        sensitivity = sensitivity + (testPre - dist(3))/testPre;
+        fpr = fpr + dist(1)/testInt;
         
     end
     

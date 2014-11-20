@@ -1,10 +1,6 @@
 %batch runs
-[error1, net1] = eeg_train(feats1_1w_0o, Y1, 200, 0.3, 0.85, 0.05);
-
-[error2, net2] = eeg_train(feats2_1w_0o, Y2, 200, 0.3, 0.85, 0.05);
-
-[error3, net3] = eeg_train(feats3_1w_0o, Y3, 200, 0.3, 0.85, 0.05);
-
-[error4, net4] = eeg_train(feats4_1w_0o, Y4, 200, 0.3, 0.85, 0.05);
-
-[error5, net5] = eeg_train(feats5_1w_0o, Y5, 200, 0.3, 0.85, 0.05);
+[sens1,fpr1] = cross_val(feats2_1w_0o, Y2, 10, 1000);
+[sens2,fpr2] = cross_val(feats2_1w_0o, Y2, 10, 1000);
+[sens3,fpr3] = cross_val(feats3_1w_0o, Y3, 10, 1000);
+[sens4,fpr4] = cross_val(feats4_1w_0o, Y4, 10, 1000);
+[sens5,fpr5] = cross_val(feats5_1w_0o, Y5, 10, 1000);

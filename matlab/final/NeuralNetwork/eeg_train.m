@@ -45,6 +45,7 @@ function [error, net, sens, fpr]= eeg_train(X, Y, trials, a, m, d, testX, testY)
         
         accum_error = 0;
         
+        %train
         for i = indPerm
             
             %set learning rate based on class
