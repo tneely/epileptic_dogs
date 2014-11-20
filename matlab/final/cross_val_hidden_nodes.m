@@ -49,14 +49,15 @@ function [sensitivity, fpr] = cross_val_hidden_nodes(X,Y,N,T, feat_to_hid_ratio)
         [error,net] = eeg_train_hidden_nodes(X(trainer,:),Y(1,trainer), feat_to_hid_ratio,T,.3,0.85,0.05);
 
         predY = [];
-        for i = 1:length(tester)
+        L = length(tester);
+        for i = 1:L
             predY = [predY, round(net.predict(X(tester(i),:)))];
         end
 
         diff = Y(1,tester) - predY;
         dist = histc(diff, -1:1); %-1 if false positive, 1 if miss
-        sensitivity = sensitivity + (numPre - dist(3))/numPre;
-        fpr = fpr + dist(1)/numInt;
+        sensitivity = sensitivity + (sum(Y(1,tester)) - dist(3))/Y(1,tester);
+        fpr = fpr + dist(1)/(L-Y(1,tester));
         
     end
     
