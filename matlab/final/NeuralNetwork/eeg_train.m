@@ -10,7 +10,10 @@
     testY : optional 1xsegments matrix indicating classes of test
 
     OUTPUT
-    error : a 1xsegments vector of error per trial
+    error : a trialsx1 vector of error per trial
+    net : neural network with trained weights
+    sens : trialsx1 vector of senstivity on test data per trial
+    fpr : trialsx1 vector of false positive rate on test data per trial
 %}
 
 function [error, net, sens, fpr]= eeg_train(X, Y, trials, a, m, d, testX, testY)
@@ -28,8 +31,8 @@ function [error, net, sens, fpr]= eeg_train(X, Y, trials, a, m, d, testX, testY)
     
     net.addInputLayer(numFeats,numFeats);
     hiddenNodes = floor(numFeats/2);
-    %net.addHiddenLayer(numFeats, hiddenNodes);
-    net.addOutputLayer(numFeats,1,0,0);
+    net.addHiddenLayer(numFeats, hiddenNodes);
+    net.addOutputLayer(hiddenNodes,1,0,0);
     
     error = zeros(trials,1);
     sens = zeros(trials,1);
