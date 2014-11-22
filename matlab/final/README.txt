@@ -14,64 +14,77 @@ ______             _ _      _
 \_|  |_|  \___|\__,_|_|\___|\__\___/|_|   
 
          ,--._______,-. 
-       ,','  ,    .  ,_`-. 
-      / /  ,' , _` ``. |  )       `-.. 
-     (,';'""`/ '"`-._ ` \/ ______    \\ 
-       : ,o.-`- ,o.  )\` -'      `---.)) 
-       : , d8b ^-.   '|   `.      `    `. 
-       |/ __:_     `. |  ,  `       `    \ 
-       | ( ,-.`-.    ;'  ;   `       :    ; 
-       | |  ,   `.      /     ;      :    \ 
-       ;-'`:::._,`.__),'             :     ; 
-      / ,  `-   `--                  ;     | 
-     /  \                   `       ,      | 
-    (    `     :              :    ,\      | 
-     \   `.    :     :        :  ,'  \    : 
-      \    `|-- `     \ ,'    ,-'     :-.-'; 
-      :     |`--.______;     |        :    : 
-       :    /           |    |         |   \ 
-       |    ;           ;    ;        /     ; 
-     _/--' |   -hrr-   :`-- /         \_:_:_| 
-   ,',','  |           |___ \ 
-   `^._,--'           / , , .) 
-                      `-._,-' 
+       ,','  ,    .  ,_`-. 			
+      / /  ,' , _` ``. |  )       `-.. 	
+     (,';'""`/ '"`-._ ` \/ ______    \\ 	
+       : ,o.-`- ,o.  )\` -'      `---.)) 	
+       : , d8b ^-.   '|   `.      `    `. 	
+       |/ __:_     `. |  ,  `       `    \ 	
+       | ( ,-.`-.    ;'  ;   `       :    ; 	
+       | |  ,   `.      /     ;      :    \ 	
+       ;-'`:::._,`.__),'             :     ; 	
+      / ,  `-   `--                  ;     | 	
+     /  \                   `       ,      | 	
+    (    `     :              :    ,\      | 	
+     \   `.    :     :        :  ,'  \    : 	
+      \    `|-- `     \ ,'    ,-'     :-.-'; 	
+      :     |`--.______;     |        :    : 	
+       :    /           |    |         |   \ 	
+       |    ;           ;    ;        /     ; 	
+     _/--' |   -hrr-   :`-- /         \_:_:_| 	
+   ,',','  |           |___ \ 			
+   `^._,--'           / , , .) 			
+                      `-._,-' 		
 
                                           
 ===============================================================================                                     
 by Jack Terwilliger and Taylor Neely
 ===============================================================================
 
-Before you begin, please add the entiredirectory to your path.
-Please note, that all features have been already computed.
+Before you begin, please add the our whole project to your MATLAB path.
+
+Please note, that all features have been already computed, however
+a sampling of raw data has been provided for you to test feature generation.
 
 ===============================================================================
-Feature Generation note: you must select multiple examples
+I. Feature Generation note: you must select multiple examples
 ===============================================================================
 
-We have provided some samples of our raw data with which you can generate
+1.)enter: [featsX, Y] = read_gen(1, 0, 1, 1, 1, 1)
+	read_gen allows you to turn on and off different parts of feature
+	generation, here we choose all the features, choose one time window
+	and turn off overlapping sliding windows(it never improved our results)
 
-1.)enter: read_gen(1, 0, 1, 1, 1, 1)
 
 2.)Wait for the file browser, then navigate to /features/Dog5 Partial RAW/
 
-3.)Select Multiple Files or the Function will crash
+IMPORTANT: Select Multiple Files or the Function will crash
 
 ===============================================================================
-Run A Test
+II. Gradient Descent on those Features
 ===============================================================================
 
-to test that the Neural Network works 
-1.)enter: XOR
+Now you will run gradient descent on the features you just generated
+eeg_train takes, trainX trainY, a learning rate, momentum, and decay
+Feel free to play with the parameters.
+
+1.)enter: [error, net, sens, fpr]= eeg_train(featsX, Y, 200, .3, .85, .05)
+
+Now plot the error over epochs.It should appear to descend
+
+2.)plot(error)
 
 
-to test gradient descent
-1.) enter: load('dog5')
 
-2.) [error, net, sens, fpr]= eeg_train(feats5_1w_0o, Y5, 200, .3, .85, .05)
-plot(error)
+===============================================================================
+III. Cross Validation Warning it takes a significant amount of time
+===============================================================================
 
+This takes a little longer than gradient descent, however if you run this on 
+the features that you recently generated, it should take no more than 1 minute 
 
+1.) enter: [sensitivity, falsepositive] = cross_val(featsX, Y, 10, 200)
 
-Cross Validation Warning it takes a significant amount of time
-1.) enter: [sensitivity, falsepositive] = cross_val(feats5_1w_0o, Y5, 10, 200)
+===============================================================================
 
+===============================================================================
