@@ -1,6 +1,6 @@
 %{
     Reads in all segments from EEG set and generates a feature list of 
-    all segments.
+    all segments. A prompt will allow multi-selection of segments.
 
     INPUT
     windows: scalar, desired amount of windows over time series

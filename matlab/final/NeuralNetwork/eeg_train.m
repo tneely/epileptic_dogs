@@ -28,8 +28,8 @@ function [error, net, sens, fpr]= eeg_train(X, Y, trials, a, m, d, testX, testY)
     
     net.addInputLayer(numFeats,numFeats);
     hiddenNodes = floor(numFeats/2);
-    net.addHiddenLayer(numFeats, hiddenNodes);
-    net.addOutputLayer(hiddenNodes,1,0,0);
+    %net.addHiddenLayer(numFeats, hiddenNodes);
+    net.addOutputLayer(numFeats,1,0,0);
     
     error = zeros(trials,1);
     sens = zeros(trials,1);
