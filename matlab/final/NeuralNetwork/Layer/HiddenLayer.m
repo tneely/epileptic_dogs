@@ -1,6 +1,7 @@
 classdef HiddenLayer < NeuralLayer
-    %NerualLayer 
-    %   Detailed explanation goes here
+    %HiddenLayer is a subclass of Neural Layer
+    %   Hidden Layer pretty much does everythin that a Neural Layer does
+    %   except when you ask it what it is, it says 'hidden'
     
     properties
         type = 'hidden';

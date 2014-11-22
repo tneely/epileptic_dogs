@@ -1,3 +1,4 @@
+%Proof that the network words
 %Create network
 net = FeedForwardNetwork();
 net.learning_rate = 1;

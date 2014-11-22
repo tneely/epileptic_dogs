@@ -1,6 +1,7 @@
 classdef OutputLayer < NeuralLayer
-    %NerualLayer 
-    %   Detailed explanation goes here
+    %OutputLayer is a subclass of NeuralLayer 
+    %   Outputlayer recieves input from the hidden layer, performs its
+    %   activation function, and additionally may round the output
     
     properties
         type = 'output';
