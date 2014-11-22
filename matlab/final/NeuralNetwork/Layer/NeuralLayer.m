@@ -1,6 +1,8 @@
 classdef(Abstract) NeuralLayer < handle
-    %NerualLayer 
-    %   Detailed explanation goes here
+    %NeuralLayer implements a neural layer of an ANN
+    %   Keeps track of upstream and downstream layers as a linked list
+    %   Activation function is recursive
+    %   Keeps track of Weights, Biases, NetNeuronal input
     
     properties (Abstract)
         type;%input | hidden | output

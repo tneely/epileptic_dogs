@@ -1,6 +1,8 @@
 classdef InputLayer < NeuralLayer
-    %Input Layer
-    %   Detailed explanation goes here
+    %Input Layer is a subclass of NeuralLayer
+    %   InputLayer takes input and passes it along to the hidden layer
+    %   There are many properties that are just empty/are irrelavent to the
+    %   input layer
     
     properties
         type = 'input';

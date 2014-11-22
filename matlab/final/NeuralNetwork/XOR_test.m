@@ -1,6 +1,7 @@
+%Proof that the network words
 %Create network
 net = FeedForwardNetwork();
-net.learning_rate = 1;
+net.learning_rate = .3;
 net.momentum = .85;
 net.addInputLayer(2,2);
 net.addHiddenLayer(2,2);
