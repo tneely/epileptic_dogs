@@ -46,7 +46,7 @@ Please note, that all features have been already computed, however
 a sampling of raw data has been provided for you to test feature generation.
 
 ===============================================================================
-I. Feature Generation note: you must select multiple examples
+I. Feature Generation | note: you must select multiple examples
 ===============================================================================
 
 1.)enter: [featsX, Y] = read_gen(1, 0, 1, 1, 1, 1)
@@ -67,9 +67,13 @@ Now you will run gradient descent on the features you just generated
 eeg_train takes, trainX trainY, a learning rate, momentum, and decay
 Feel free to play with the parameters.
 
-1.)enter: [error, net, sens, fpr]= eeg_train(featsX, Y, 200, .3, .85, .05)
+1.)enter: [error, net, ~, ~]= eeg_train(featsX, Y, 200, .3, .85, .05)
 
-Now plot the error over epochs.It should appear to descend
+Note: the last two outputs are sensitivity and FPR and require additional
+input parameters (testX, testY). These are used for getting accuracy
+over each epoch in cross_val_aot.m
+
+Now plot the error over epochs. It should appear to descend.
 
 2.)plot(error)
 
@@ -80,7 +84,8 @@ III. Cross Validation Warning it takes a significant amount of time
 ===============================================================================
 
 This takes a little longer than gradient descent, however if you run this on 
-the features that you recently generated, it should take no more than 1 minute 
+the features that you recently generated, it should take no more than 1 minute.
+Folds (10) and trials (200) can be adjusted at will.
 
 1.) enter: [sensitivity, falsepositive] = cross_val(featsX, Y, 10, 200)
 
